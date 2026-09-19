@@ -31,9 +31,11 @@ st.caption("Donation Appraiser & Auto-Logger • Proceeds to ART:DIS")
 st.markdown("---")
 
 # Retrieve credentials from Streamlit Secrets or Environment Variables
-GEMINI_API_KEY = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY", ""))
-APPS_SCRIPT_URL = st.secrets.get("APPS_SCRIPT_URL", os.environ.get("APPS_SCRIPT_URL", ""))
+raw_gemini_key = st.secrets.get("GEMINI_API_KEY", os.environ.get("GEMINI_API_KEY", ""))
+raw_apps_script = st.secrets.get("APPS_SCRIPT_URL", os.environ.get("APPS_SCRIPT_URL", ""))
 
+GEMINI_API_KEY = str(raw_gemini_key).strip().strip('"').strip("'")
+APPS_SCRIPT_URL = str(raw_apps_script).strip().strip('"').strip("'")
 if not GEMINI_API_KEY:
     GEMINI_API_KEY = st.sidebar.text_input("Gemini API Key:", type="password")
 if not APPS_SCRIPT_URL:
